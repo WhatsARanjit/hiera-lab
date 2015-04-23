@@ -1,10 +1,11 @@
 class dc (
   $split = 2,
+  $seed  = 'dc fact',
 ) {
 
   # Create a random number between 1
   # and $split.
-  $dc = fqdn_rand($split-1)+1
+  $dc = fqdn_rand($split, $seed)+1
 
   File {
     ensure => directory,
