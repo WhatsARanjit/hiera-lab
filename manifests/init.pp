@@ -25,20 +25,8 @@ class dc (
   }
 
   if $::clientcert == 'master.puppetlabs.vm' {
-    if ! defined( Service['pe-puppetserver'] ) {
-      service { 'pe-puppetserver':
-        ensure => running,
-      }
-    }
-    if ! defined( Service['pe-puppet'] ) {
-      service { 'pe-puppet':
-        ensure => stopped,
-      }
-    }
-    file { "${::settings::confdir}/hiera.yaml":
-      ensure => file,
+    File <| title == "${::settings::confdir}/hiera.yaml" |> {
       source => 'puppet:///modules/dc/hiera.yaml',
-      notify => Service['pe-puppetserver'],
     }
   }
 }
